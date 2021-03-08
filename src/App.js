@@ -1,24 +1,37 @@
-import logo from './logo.svg';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+
+import Footer from './components/Footer';
+import Header from './components/Header';
+import Movies from './components/Movies';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
+import MovieDetails from './components/MovieDetails';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Header />
+      <Switch>
+        <Route exact path="/">
+          <Movies />
+        </Route>
+        <Route path="/movie/:id/">
+          <MovieDetails />
+        </Route>
+
+        <Route path="*">
+          <h1 className="text-center my-5">404 - Not Found!</h1>
+        </Route>
+        
+      </Switch>
+
+      <Footer />
+    </Router>
+    
   );
 }
 
