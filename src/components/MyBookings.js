@@ -1,14 +1,20 @@
 import React , { useState, useEffect } from 'react';
+import { useAuth } from '../customHooks/useAuth';
 import BookedMovie from './BookedMovie';
 
 const MyBookings = () => {
+    const { user } = useAuth() || {};
+    console.log("user", user);
     const [movies, setMovies] = useState([]);
-    const apiKey='870967436c1517d581daf3b245495790'
  
     const fetchBookingList = () => {
-        fetch(`https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=${apiKey}`)
+        if(!user?.email) {
+            return
+        }
+        
+        fetch(`http://localhost:8080/bookings?bookedBy=${user?.email}`)
        .then(res => res.json())
-       .then(data => setMovies(data.results))
+       .then(data => setMovies(data.data))
     }
 
     useEffect(() => {

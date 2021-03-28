@@ -2,12 +2,12 @@ import React from 'react';
 import { Card, Button } from 'react-bootstrap';
 
 const SingleMovie = (props) => {
-    const {id, title, poster_path} = props.movie;
-    
+    const {_id, movieName, moviePoster} = props.movie;
+
     const cancelBooking = (bookingId) => {
 
-       fetch(`api_url`, {
-            method: 'post',
+       fetch(`http://localhost:8080/booking/${bookingId}`, {
+            method: 'delete',
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -19,12 +19,12 @@ const SingleMovie = (props) => {
     return (
         <div className="col-md-3 my-3">
         <Card>
-            <Card.Img variant="top" src={`https://image.tmdb.org/t/p/w1280/${poster_path}`} />
+            <Card.Img variant="top" src={`https://image.tmdb.org/t/p/w1280/${moviePoster}`} />
             <Card.Body>
                 <div className="text-center">
-                    <Card.Title>{title}</Card.Title>
+                    <Card.Title>{movieName}</Card.Title>
                     {/* <Button as={Link}  to={`/movie/${id}`} variant="primary">View Details</Button> */}
-                    <Button onClick={ () => cancelBooking(id)} variant="light">Cancel</Button>
+                    <Button onClick={ () => cancelBooking(_id)} variant="light">Cancel</Button>
                 </div>
             </Card.Body>
         </Card>

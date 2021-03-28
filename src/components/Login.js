@@ -48,9 +48,9 @@ const Login = () => {
                   <div className="mb-3 d-grid">
                     {
                       option === 'register' ?
-                        <button type="button" onClick={ () => signUp(formData.email ,formData.password )} className="btn btn-primary">Register</button>
+                        <button type="button" onClick={ () => signUp(formData.email ,formData.password )} className="btn btn-primary btn-block">Register</button>
                         :
-                        <button type="button" onClick={() => signIn(formData.email, formData.password)} className="btn btn-primary">Login</button>
+                        <button type="button" onClick={() => signIn(formData.email, formData.password)} className="btn btn-primary btn-block">Login</button>
                     }
                     <div className="d-flex justify-content-center align-items-center mt-4 text-secondary">
                       <span className="me-2">Or, </span>

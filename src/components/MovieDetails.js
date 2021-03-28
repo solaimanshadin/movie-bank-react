@@ -21,15 +21,15 @@ const MovieDetails = () => {
 
     const handleBooking = (movie) => {
         const bookingData = {
-            bookBy: user?.email,
+            bookedBy: user?.email,
             movieName: movie.title,
             moviePoster: movie.poster_path,
             bookingDate: formData.bookingDate,
             seatCount: formData.seatCount,
         };
 
-        fetch(`api_url`, {
-            method: 'post',
+        fetch(`http://localhost:8080/book`, {
+            method: 'POST',
             body: JSON.stringify(bookingData),
             headers: {
                 'Content-Type': 'application/json'
