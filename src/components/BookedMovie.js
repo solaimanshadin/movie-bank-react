@@ -1,11 +1,21 @@
 import React from 'react';
 import { Card, Button } from 'react-bootstrap';
-import { Link , useHistory } from "react-router-dom";
 
 const SingleMovie = (props) => {
     const {id, title, poster_path} = props.movie;
-    const history = useHistory();
     
+    const cancelBooking = (bookingId) => {
+
+       fetch(`api_url`, {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then((res) => props.fetchBookingList())
+
+    }
+
     return (
         <div className="col-md-3 my-3">
         <Card>
@@ -14,7 +24,7 @@ const SingleMovie = (props) => {
                 <div className="text-center">
                     <Card.Title>{title}</Card.Title>
                     {/* <Button as={Link}  to={`/movie/${id}`} variant="primary">View Details</Button> */}
-                    <Button onClick={ () => history.push(`/movie/${id}`)} variant="primary">View Details</Button>
+                    <Button onClick={ () => cancelBooking(id)} variant="light">Cancel</Button>
                 </div>
             </Card.Body>
         </Card>
