@@ -1,21 +1,30 @@
 import React from 'react';
-import { Navbar, Nav, Form, FormControl, Button, Container } from 'react-bootstrap';
+import { Navbar, Nav, Container } from 'react-bootstrap';
 import {Link} from "react-router-dom";
+import { useAuth } from '../customHooks/useAuth';
 
 const Header = () => {
+    const { user, signOut } = useAuth() || {};
+    
     return (
-        <Navbar bg="light" expand="lg">
+        <Navbar bg="light" expand="lg" >
             <Container>
                 <Navbar.Brand  as={Link} to="/">React-Bootstrap</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="mr-auto">
+                    <Nav className="ml-auto">
                         <Nav.Link as={Link} to="/">Home</Nav.Link>
+                        {
+                            user?.email ?
+                            <>
+                                <Nav.Link as={Link} to="/my-bookings">My Bookings</Nav.Link>
+                                <Nav.Link onClick={signOut} as={Link} to="/login">Logout</Nav.Link>
+                            </>
+                            :
+                            <Nav.Link  as={Link} to="/Login">Login</Nav.Link>
+
+                        }
                     </Nav>
-                    <Form inline>
-                        <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-                        <Button variant="outline-success">Search</Button>
-                    </Form>
                 </Navbar.Collapse>
             </Container>
         </Navbar>

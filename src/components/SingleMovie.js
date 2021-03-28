@@ -6,7 +6,6 @@ const SingleMovie = (props) => {
     const {id, title, poster_path} = props.movie;
     const history = useHistory();
     
-    
     return (
         <div className="col-md-3 my-3">
         <Card>
