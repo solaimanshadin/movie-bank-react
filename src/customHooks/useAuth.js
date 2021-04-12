@@ -48,11 +48,23 @@ export const Auth = () => {
     
     const [user, setUser] = useState({});
     const [error, setError] = useState(null);
-
+    const [authToken, setAuthToken] = useState(null)
+    const storeAuthToken = () => {
+      firebase.auth().currentUser.getIdToken(/* forceRefresh */ true)
+      .then(function(idToken) {
+        console.log("token" ,idToken);
+        setAuthToken(idToken)
+        // Send token to your backend via HTTPS
+        // ...
+      }).catch(function(error) {
+        // Handle error
+      });
+    }
 
     React.useEffect(() => {
       firebase.auth().onAuthStateChanged(function(user) {
           if (user) {
+            storeAuthToken();
             setUser({ name: user.displayName, email: user.email })
           }else{
             setUser(null)
@@ -69,7 +81,9 @@ export const Auth = () => {
           var user = result.user;
           setUser({ name: user.displayName, email: user.email })    
           window.history.back();
-      
+
+          storeAuthToken()
+          
         }).catch((error) => {
           // Handle Errors here.
           const errorMessage = error.message;
@@ -125,6 +139,7 @@ export const Auth = () => {
   
     return {
       user,
+      authToken,
       signOut,
       signIn,
       signUp,
