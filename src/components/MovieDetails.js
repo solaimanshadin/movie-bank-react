@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Form,  Button,  } from 'react-bootstrap';
 
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { useAuth } from '../customHooks/useAuth';
 
 const MovieDetails = () => {
     const { id } = useParams();
     const { user } = useAuth() || {};
+    const history = useHistory();
 
 
     const [movie, setMovie] = useState({});
@@ -36,6 +37,9 @@ const MovieDetails = () => {
             },
           
         })
+        .then(() => history.push('/my-bookings'))
+
+
     }
 
     return (
